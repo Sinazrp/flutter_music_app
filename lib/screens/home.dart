@@ -37,38 +37,49 @@ class Home extends StatelessWidget {
             ), */
             Padding(
               padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.search_rounded),
+              child: Icon(Icons.search_rounded, color: Colors.white),
             ),
           ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
+            physics: ScrollPhysics(),
             itemCount: 100,
             itemBuilder: (context, index) {
-              return Container(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(12)),
-                  child: const ListTile(
-                    title: Text(
-                      'Music Name',
-                      style: TextStyle(fontSize: 15, color: whiteColor),
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3),
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Color.fromARGB(46, 255, 255, 255),
                     ),
-                    subtitle: Text(
-                      'Music Name',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 218, 211, 211),
-                        fontSize: 12,
-                      ),
-                    ),
-                    leading: CircleAvatar(
-                      backgroundColor: Color.fromARGB(17, 255, 255, 255),
-                      child: Icon(
-                        Icons.music_note,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ));
+                    child: const ListTile(
+                        title: Text(
+                          'Music Name',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: whiteColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          'Music Name',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 218, 211, 211),
+                            fontSize: 12,
+                          ),
+                        ),
+                        leading: CircleAvatar(
+                          backgroundColor: Color.fromARGB(17, 255, 255, 255),
+                          child: Icon(
+                            Icons.music_note,
+                            color: Colors.white,
+                          ),
+                        ),
+                        trailing:
+                            Icon(Icons.play_circle, color: Colors.white))),
+              );
             },
           ),
         ),
