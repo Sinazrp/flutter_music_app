@@ -4,8 +4,8 @@ import 'colors.dart';
 
 appBarStyle() {
   return const TextStyle(
-    fontSize: 22,
-    color: bgColor,
-    fontFamily: 'Nebula',
-  );
+      fontSize: 22,
+      color: whiteColor,
+      fontFamily: 'Nebula',
+      fontWeight: FontWeight.bold);
 }
