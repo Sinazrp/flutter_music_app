@@ -81,7 +81,10 @@ flutter:
         - asset: assets/fonts/Elianto-Regular.otf
     - family: Varino
       fonts:
-        - asset: assets/fonts/Varino-Normal.otf        
+        - asset: assets/fonts/Varino-Normal.otf
+    - family: Nebula
+      fonts:
+        - asset: assets/fonts/Nebula-Regular.otf     
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

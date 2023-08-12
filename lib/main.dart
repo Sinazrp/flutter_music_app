@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_music_app/screens/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,12 @@ class MyApp extends StatelessWidget {
       title: 'Music App',
       theme: ThemeData(
           useMaterial3: true,
-          fontFamily: 'Varino',
+          fontFamily: 'Elianto',
           appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.transparent, elevation: 0)),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          )),
+      home: Home(),
     );
   }
 }
