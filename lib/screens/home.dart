@@ -46,10 +46,22 @@ class Home extends StatelessWidget {
         ),
         body: FutureBuilder(
           builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return const Center(
+                child: CircularProgressIndicator(
+                    color: Color.fromARGB(129, 255, 255, 255)),
+              );
+            } else if (snapshot.data!.isEmpty) {
+              return const Center(
+                child: Text(
+                  'No Song Found',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                physics: ScrollPhysics(),
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   return Padding(
