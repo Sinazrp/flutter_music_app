@@ -59,10 +59,11 @@ class Home extends StatelessWidget {
                 ),
               );
             }
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: 100,
+                itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
@@ -72,22 +73,28 @@ class Home extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           color: Color.fromARGB(26, 255, 255, 255),
                         ),
-                        child: const ListTile(
-                            title: Text(
-                              'Music Name',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: whiteColor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(
-                              'Music Name',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 218, 211, 211),
+                        child: ListTile(
+                          title: Text(
+                            snapshot.data![index].title,
+                            maxLines: 2,
+                            style: const TextStyle(
                                 fontSize: 12,
-                              ),
+                                color: whiteColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            snapshot.data![index].artist.toString(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 218, 211, 211),
+                              fontSize: 12,
                             ),
-                            leading: CircleAvatar(
+                          ),
+                          leading: QueryArtworkWidget(
+                            id: snapshot.data![index].id,
+                            type: ArtworkType.AUDIO,
+                            nullArtworkWidget: const CircleAvatar(
                               backgroundColor:
                                   Color.fromARGB(17, 255, 255, 255),
                               child: Icon(
@@ -95,8 +102,11 @@ class Home extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                            trailing:
-                                Icon(Icons.play_circle, color: Colors.white))),
+                          ),
+                          trailing: const Icon(Icons.menu_rounded,
+                              color: Colors.white),
+                          onTap: () {},
+                        )),
                   );
                 },
               ),
