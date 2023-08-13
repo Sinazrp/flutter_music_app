@@ -68,45 +68,53 @@ class Home extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 5.0, vertical: 3),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Color.fromARGB(26, 255, 255, 255),
-                        ),
-                        child: ListTile(
-                          title: Text(
-                            snapshot.data![index].title,
-                            maxLines: 2,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: whiteColor,
-                                fontWeight: FontWeight.bold),
+                    child: Obx(
+                      () => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: controller.playIndex.value == index &&
+                                    controller.isPlaying.value
+                                ? Color.fromARGB(122, 36, 36, 36)
+                                : Color.fromARGB(26, 255, 255, 255),
                           ),
-                          subtitle: Text(
-                            snapshot.data![index].artist.toString(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 218, 211, 211),
-                              fontSize: 12,
+                          child: ListTile(
+                            title: Text(
+                              snapshot.data![index].title,
+                              maxLines: 2,
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  color: whiteColor,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          leading: QueryArtworkWidget(
-                            id: snapshot.data![index].id,
-                            type: ArtworkType.AUDIO,
-                            nullArtworkWidget: const CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(17, 255, 255, 255),
-                              child: Icon(
-                                Icons.music_note,
-                                color: Colors.white,
+                            subtitle: Text(
+                              snapshot.data![index].artist.toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 218, 211, 211),
+                                fontSize: 12,
                               ),
                             ),
-                          ),
-                          trailing: const Icon(Icons.menu_rounded,
-                              color: Colors.white),
-                          onTap: () {},
-                        )),
+                            leading: QueryArtworkWidget(
+                              id: snapshot.data![index].id,
+                              type: ArtworkType.AUDIO,
+                              nullArtworkWidget: const CircleAvatar(
+                                backgroundColor:
+                                    Color.fromARGB(17, 255, 255, 255),
+                                child: Icon(
+                                  Icons.music_note,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            trailing: const Icon(Icons.menu_rounded,
+                                color: Colors.white),
+                            onTap: () {
+                              controller.playSong(
+                                  snapshot.data![index].uri, index);
+                            },
+                          )),
+                    ),
                   );
                 },
               ),
