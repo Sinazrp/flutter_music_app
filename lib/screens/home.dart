@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_music_app/constant/colors.dart';
 import 'package:flutter_music_app/constant/text_style.dart';
@@ -46,8 +48,8 @@ class Home extends StatelessWidget {
             ],
           ),
           body: Obx(
-            () => controller.musicList.isEmpty || controller.musicList == null
-                ? CircularProgressIndicator()
+            () => controller.musicList.isEmpty
+                ? const CircularProgressIndicator()
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.builder(
