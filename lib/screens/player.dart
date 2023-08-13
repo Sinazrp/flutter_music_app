@@ -105,19 +105,27 @@ class Player extends StatelessWidget {
                     color: whiteColor,
                     size: 35,
                   )),
-              IconButton(
-                  onPressed: () {},
-                  icon: controller.isPlaying.value
-                      ? const Icon(
-                          Icons.pause_rounded,
-                          color: whiteColor,
-                          size: 45,
-                        )
-                      : const Icon(
-                          Icons.play_arrow_rounded,
-                          color: whiteColor,
-                          size: 45,
-                        )),
+              Obx(
+                () => IconButton(
+                    onPressed: () {
+                      if (controller.isPlaying.value) {
+                        controller.pauseSong();
+                      } else {
+                        controller.resumeSong();
+                      }
+                    },
+                    icon: controller.isPlaying.value
+                        ? const Icon(
+                            Icons.pause_rounded,
+                            color: whiteColor,
+                            size: 45,
+                          )
+                        : const Icon(
+                            Icons.play_arrow_rounded,
+                            color: whiteColor,
+                            size: 45,
+                          )),
+              ),
               IconButton(
                   onPressed: () {},
                   icon: const Icon(

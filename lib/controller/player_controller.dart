@@ -35,6 +35,13 @@ class PlayerController extends GetxController {
     }
   }
 
+  resumeSong() {
+    try {
+      audioPlayer.play();
+      isPlaying(true);
+    } catch (e) {}
+  }
+
   pauseSong() {
     try {
       audioPlayer.pause();
