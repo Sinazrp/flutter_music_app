@@ -24,6 +24,15 @@ class PlayerController extends GetxController {
     }
   }
 
+  pauseSong() {
+    try {
+      audioPlayer.pause();
+      isPlaying(false);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   playSong(String? uri, index) {
     playIndex.value = index;
     try {

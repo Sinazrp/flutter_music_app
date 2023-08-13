@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_music_app/constant/colors.dart';
 import 'package:flutter_music_app/constant/text_style.dart';
 import 'package:flutter_music_app/controller/player_controller.dart';
+import 'package:flutter_music_app/screens/player.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
-  var controller = Get.put(PlayerController());
+  var controller = Get.put(PlayerController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +133,15 @@ class Home extends StatelessWidget {
                               } else {
                                 controller.playSong(
                                     snapshot.data![index].uri, index);
+                                Get.to(
+                                    () => Player(
+                                          songModel: snapshot.data![index],
+                                        ),
+                                    transition: Transition.downToUp,
+                                    duration: Duration(milliseconds: 400));
                               }
                             },
+                            onLongPress: () {},
                           )),
                     ),
                   );
