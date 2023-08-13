@@ -8,10 +8,21 @@ class PlayerController extends GetxController {
   final audioPlayer = AudioPlayer();
   var playIndex = 0.obs;
   var isPlaying = false.obs;
+  var musicList = RxList<SongModel>();
+
   @override
   void onInit() {
     super.onInit();
     checkPermission();
+  }
+
+  query() async {
+    var a = await audioQuery.querySongs(
+        ignoreCase: true,
+        orderType: OrderType.ASC_OR_SMALLER,
+        sortType: null,
+        uriType: UriType.EXTERNAL);
+    musicList.assignAll(a);
   }
 
   stopSong() {
@@ -47,6 +58,7 @@ class PlayerController extends GetxController {
   checkPermission() async {
     var perm = await Permission.storage.request();
     if (perm.isGranted) {
+      query();
     } else {
       checkPermission();
     }

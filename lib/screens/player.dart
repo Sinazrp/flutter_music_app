@@ -7,12 +7,16 @@ import 'package:on_audio_query/on_audio_query.dart';
 import '../widgets/background_filter.dart';
 
 class Player extends StatelessWidget {
-  Player({Key? key, required this.songModel}) : super(key: key);
-  final SongModel songModel;
+  Player({
+    Key? key,
+  }) : super(key: key);
+
   var controller = Get.put(PlayerController());
 
   @override
   Widget build(BuildContext context) {
+    int index = controller.playIndex.value;
+    SongModel songModel = controller.musicList[index];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
