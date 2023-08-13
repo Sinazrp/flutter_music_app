@@ -86,13 +86,13 @@ class Home extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      color:
-                                          controller.playIndex.value == index &&
-                                                  controller.isPlaying.value
-                                              ? greenColors
-                                              : Colors.white,
-                                      fontSize: 12,
-                                    ),
+                                        color: controller.playIndex.value ==
+                                                    index &&
+                                                controller.isPlaying.value
+                                            ? greenColors
+                                            : Colors.white,
+                                        fontSize: 12,
+                                        fontFamily: "Roboto"),
                                   ),
                                   leading: CircleAvatar(
                                     backgroundColor:

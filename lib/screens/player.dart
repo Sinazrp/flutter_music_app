@@ -39,14 +39,18 @@ class Player extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Text(
-                  songModel.title,
-                  style: const TextStyle(
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                    songModel.title,
+                    style: const TextStyle(
                       color: whiteColor,
                       fontSize: 19,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -54,13 +58,16 @@ class Player extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Text(
-                  songModel.artist.toString(),
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 213, 211, 211),
-                    fontSize: 13,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                    songModel.artist.toString(),
+                    style: const TextStyle(
+                      fontFamily: "Roboto",
+                      color: Color.fromARGB(255, 213, 211, 211),
+                      fontSize: 13,
+                    ),
                   ),
                 ),
               ),
@@ -96,6 +103,22 @@ class Player extends StatelessWidget {
                 ),
               ), */
             ],
+          ),
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      controller.position.value,
+                      style: TextStyle(color: whiteColor, fontFamily: "Roboto"),
+                    ),
+                    Text(controller.duration.value,
+                        style:
+                            TextStyle(color: whiteColor, fontFamily: "Roboto"))
+                  ]),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

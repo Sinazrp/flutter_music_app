@@ -9,11 +9,24 @@ class PlayerController extends GetxController {
   var playIndex = 0.obs;
   var isPlaying = false.obs;
   var musicList = RxList<SongModel>();
+  var duration = ''.obs;
+  var position = ''.obs;
+  var durationValue = 0.0.obs;
+  var positionValue = 0.0.obs;
 
   @override
   void onInit() {
     super.onInit();
     checkPermission();
+  }
+
+  updatePosition() {
+    audioPlayer.durationStream.listen((event) {
+      duration.value = event.toString().split('.')[0];
+    });
+    audioPlayer.positionStream.listen((event) {
+      position.value = event.toString().split('.')[0];
+    });
   }
 
   query() async {
@@ -57,6 +70,7 @@ class PlayerController extends GetxController {
       audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
       audioPlayer.play();
       isPlaying(true);
+      updatePosition();
     } catch (e) {
       print(e.toString());
     }
