@@ -11,7 +11,7 @@ class Player extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  var controller = Get.put(PlayerController());
+  var controller = Get.find<PlayerController>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +34,14 @@ class Player extends StatelessWidget {
         ),
         const BackGroundFilter(),
         Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 15.0),
+                padding: const EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'Music Name',
-                  style: TextStyle(
+                  songModel.title,
+                  style: const TextStyle(
                       color: whiteColor,
                       fontSize: 19,
                       fontWeight: FontWeight.bold),
@@ -49,14 +49,14 @@ class Player extends StatelessWidget {
               ),
             ],
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 15.0),
+                padding: const EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'Music Singer',
-                  style: TextStyle(
+                  songModel.artist.toString(),
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 213, 211, 211),
                     fontSize: 13,
                   ),
@@ -65,7 +65,7 @@ class Player extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,21 +100,27 @@ class Player extends StatelessWidget {
             children: [
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.skip_previous_rounded,
                     color: whiteColor,
                     size: 35,
                   )),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
-                    Icons.play_arrow_rounded,
-                    color: whiteColor,
-                    size: 45,
-                  )),
+                  icon: controller.isPlaying.value
+                      ? const Icon(
+                          Icons.pause_rounded,
+                          color: whiteColor,
+                          size: 45,
+                        )
+                      : const Icon(
+                          Icons.play_arrow_rounded,
+                          color: whiteColor,
+                          size: 45,
+                        )),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.skip_next_rounded,
                     color: whiteColor,
                     size: 35,
