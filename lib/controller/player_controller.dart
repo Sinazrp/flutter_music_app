@@ -6,15 +6,23 @@ import 'package:permission_handler/permission_handler.dart';
 class PlayerController extends GetxController {
   final audioQuery = OnAudioQuery();
   final audioPlayer = AudioPlayer();
+  var playIndex = 0.obs;
+  var isPlaying = false.obs;
   @override
   void onInit() {
     super.onInit();
     checkPermission();
   }
 
-  playSong(String uri) {
-    audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri)));
-    audioPlayer.play();
+  playSong(String? uri, index) {
+    playIndex.value = index;
+    try {
+      audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+      audioPlayer.play();
+      isPlaying(true);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   checkPermission() async {
