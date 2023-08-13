@@ -18,14 +18,37 @@ class PlayerController extends GetxController {
   void onInit() {
     super.onInit();
     checkPermission();
+    /* ever(positionValue, (callback) {
+      print(isPlaying.value);
+
+      if (callback == durationValue.value && callback > 0) {
+        print(isPlaying.value);
+        isPlaying(false);
+        positionValue.value = 0.0;
+      }
+    }); */
+    ever(isPlaying, (callback) {
+      if (audioPlayer.playing) {
+        isPlaying(true);
+      } else if (audioPlayer.playing == false) {
+        isPlaying(false);
+      }
+    });
+  }
+
+  seekSlider(seconds) {
+    var sliderduration = Duration(seconds: seconds);
+    audioPlayer.seek(sliderduration);
   }
 
   updatePosition() {
     audioPlayer.durationStream.listen((event) {
       duration.value = event.toString().split('.')[0];
+      durationValue.value = event!.inSeconds.toDouble();
     });
     audioPlayer.positionStream.listen((event) {
       position.value = event.toString().split('.')[0];
+      positionValue.value = event.inSeconds.toDouble();
     });
   }
 
@@ -51,6 +74,10 @@ class PlayerController extends GetxController {
   resumeSong() {
     try {
       audioPlayer.play();
+      if (positionValue.value == 0) {
+        var uri = musicList[playIndex.value].uri;
+        audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+      }
       isPlaying(true);
     } catch (e) {}
   }
@@ -64,9 +91,10 @@ class PlayerController extends GetxController {
     }
   }
 
-  playSong(String? uri, index) {
+  playSong(index) {
     playIndex.value = index;
     try {
+      var uri = musicList[index].uri;
       audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
       audioPlayer.play();
       isPlaying(true);

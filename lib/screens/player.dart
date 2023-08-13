@@ -17,8 +17,6 @@ class Player extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int index = controller.playIndex.value;
-    SongModel songModel = controller.musicList[index];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -26,13 +24,15 @@ class Player extends StatelessWidget {
       ),
       extendBodyBehindAppBar: true,
       body: Stack(fit: StackFit.expand, children: [
-        QueryArtworkWidget(
-          artworkBorder: BorderRadius.circular(0),
-          id: songModel.id,
-          type: ArtworkType.AUDIO,
-          nullArtworkWidget: Image.asset(
-              'assets/fonts/images/HD-wallpaper-liquifying-thoughts-listening-music-girl-color-mysterious-abstract.jpg',
-              fit: BoxFit.cover),
+        Obx(
+          () => QueryArtworkWidget(
+            artworkBorder: BorderRadius.circular(0),
+            id: controller.musicList[controller.playIndex.value].id,
+            type: ArtworkType.AUDIO,
+            nullArtworkWidget: Image.asset(
+                'assets/fonts/images/HD-wallpaper-liquifying-thoughts-listening-music-girl-color-mysterious-abstract.jpg',
+                fit: BoxFit.cover),
+          ),
         ),
         const BackGroundFilter(),
         Column(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -42,13 +42,15 @@ class Player extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    songModel.title,
-                    style: const TextStyle(
-                      color: whiteColor,
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.fade,
+                  child: Obx(
+                    () => Text(
+                      controller.musicList[controller.playIndex.value].title,
+                      style: const TextStyle(
+                        color: whiteColor,
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
                   ),
                 ),
@@ -61,12 +63,15 @@ class Player extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    songModel.artist.toString(),
-                    style: const TextStyle(
-                      fontFamily: "Roboto",
-                      color: Color.fromARGB(255, 213, 211, 211),
-                      fontSize: 13,
+                  child: Obx(
+                    () => Text(
+                      controller.musicList[controller.playIndex.value].artist
+                          .toString(),
+                      style: const TextStyle(
+                        fontFamily: "Roboto",
+                        color: Color.fromARGB(255, 213, 211, 211),
+                        fontSize: 13,
+                      ),
                     ),
                   ),
                 ),
@@ -87,11 +92,18 @@ class Player extends StatelessWidget {
                 ),
               ), */
               Expanded(
-                child: Slider(
-                  value: 0.0,
-                  thumbColor: Colors.deepPurple.shade200,
-                  activeColor: const Color.fromARGB(105, 255, 255, 255),
-                  onChanged: (newValue) {},
+                child: Obx(
+                  () => Slider(
+                    value: controller.positionValue.value,
+                    max: controller.durationValue.value,
+                    thumbColor: Colors.deepPurple.shade200,
+                    min: Duration(seconds: 0).inSeconds.toDouble(),
+                    activeColor: const Color.fromARGB(105, 255, 255, 255),
+                    onChanged: (newValue) {
+                      controller.seekSlider(newValue.toInt());
+                      newValue = newValue;
+                    },
+                  ),
                 ),
               ),
 
@@ -124,7 +136,9 @@ class Player extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.playSong(controller.playIndex.value - 1);
+                  },
                   icon: const Icon(
                     Icons.skip_previous_rounded,
                     color: whiteColor,
@@ -152,7 +166,9 @@ class Player extends StatelessWidget {
                           )),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.playSong(controller.playIndex.value + 1);
+                  },
                   icon: const Icon(
                     Icons.skip_next_rounded,
                     color: whiteColor,
