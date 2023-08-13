@@ -14,8 +14,8 @@ class Home extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
-        Colors.deepPurple.shade800.withOpacity(0.8),
-        Colors.deepPurple.shade200.withOpacity(0.8)
+        Colors.deepPurple.shade800.withOpacity(0.9),
+        Colors.deepPurple.shade200.withOpacity(0.7)
       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -81,37 +81,58 @@ class Home extends StatelessWidget {
                             title: Text(
                               snapshot.data![index].title,
                               maxLines: 2,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontSize: 12,
-                                  color: whiteColor,
+                                  color: controller.playIndex.value == index &&
+                                          controller.isPlaying.value
+                                      ? greenColors
+                                      : Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
                               snapshot.data![index].artist.toString(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 218, 211, 211),
+                              style: TextStyle(
+                                color: controller.playIndex.value == index &&
+                                        controller.isPlaying.value
+                                    ? greenColors
+                                    : Colors.white,
                                 fontSize: 12,
                               ),
                             ),
-                            leading: QueryArtworkWidget(
-                              id: snapshot.data![index].id,
-                              type: ArtworkType.AUDIO,
-                              nullArtworkWidget: const CircleAvatar(
-                                backgroundColor:
-                                    Color.fromARGB(17, 255, 255, 255),
-                                child: Icon(
-                                  Icons.music_note,
-                                  color: Colors.white,
-                                ),
-                              ),
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  Color.fromARGB(17, 255, 255, 255),
+                              child: controller.isPlaying.value &&
+                                      controller.playIndex.value == index
+                                  ? Icon(Icons.pause)
+                                  : QueryArtworkWidget(
+                                      id: snapshot.data![index].id,
+                                      type: ArtworkType.AUDIO,
+                                      nullArtworkWidget: const Icon(
+                                        Icons.music_note,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                             ),
-                            trailing: const Icon(Icons.menu_rounded,
-                                color: Colors.white),
+                            trailing: InkWell(
+                              onTap: () {},
+                              child: Icon(Icons.menu_rounded,
+                                  color: controller.playIndex.value == index &&
+                                          controller.isPlaying.value
+                                      ? greenColors
+                                      : Colors.white),
+                            ),
                             onTap: () {
-                              controller.playSong(
-                                  snapshot.data![index].uri, index);
+                              if (controller.isPlaying.value &&
+                                  controller.playIndex.value == index) {
+                                controller.stopSong();
+                                print('stop');
+                              } else {
+                                controller.playSong(
+                                    snapshot.data![index].uri, index);
+                              }
                             },
                           )),
                     ),
