@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/background_filter.dart';
+
 class Player extends StatelessWidget {
   const Player({Key? key}) : super(key: key);
 
@@ -10,7 +12,11 @@ class Player extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Stack(children: []),
+      extendBodyBehindAppBar: true,
+      body: Stack(fit: StackFit.expand, children: [
+        Image.asset('assets/fonts/images/dragon.jpg', fit: BoxFit.cover),
+        const BackGroundFilter()
+      ]),
     );
   }
 }
