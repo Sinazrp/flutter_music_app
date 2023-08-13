@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music_app/screens/home.dart';
+import 'package:flutter_music_app/screens/player.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
           )),
-      home: Home(),
+      home: Player(),
     );
   }
 }
