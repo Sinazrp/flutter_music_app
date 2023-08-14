@@ -97,11 +97,14 @@ class Player extends StatelessWidget {
                     value: controller.positionValue.value,
                     max: controller.durationValue.value,
                     thumbColor: Colors.deepPurple.shade200,
-                    min: Duration(seconds: 0).inSeconds.toDouble(),
+                    min: const Duration(seconds: 0).inSeconds.toDouble(),
                     activeColor: const Color.fromARGB(105, 255, 255, 255),
                     onChanged: (newValue) {
                       controller.seekSlider(newValue.toInt());
                       newValue = newValue;
+                      if (controller.audioPlayer.playing) {
+                        controller.isPlaying(true);
+                      }
                     },
                   ),
                 ),
@@ -137,7 +140,9 @@ class Player extends StatelessWidget {
             children: [
               IconButton(
                   onPressed: () {
-                    controller.playSong(controller.playIndex.value - 1);
+                    if (controller.playIndex > 0) {
+                      controller.playSong(controller.playIndex.value - 1);
+                    }
                   },
                   icon: const Icon(
                     Icons.skip_previous_rounded,
@@ -167,7 +172,12 @@ class Player extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () {
-                    controller.playSong(controller.playIndex.value + 1);
+                    if (controller.playIndex <
+                        controller.musicList.length - 1) {
+                      controller.playSong(controller.playIndex.value + 1);
+                    } else {
+                      Get.snackbar('Musiclot', 'Last music of list');
+                    }
                   },
                   icon: const Icon(
                     Icons.skip_next_rounded,

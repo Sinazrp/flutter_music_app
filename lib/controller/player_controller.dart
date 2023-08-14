@@ -18,22 +18,6 @@ class PlayerController extends GetxController {
   void onInit() {
     super.onInit();
     checkPermission();
-    /* ever(positionValue, (callback) {
-      print(isPlaying.value);
-
-      if (callback == durationValue.value && callback > 0) {
-        print(isPlaying.value);
-        isPlaying(false);
-        positionValue.value = 0.0;
-      }
-    }); */
-    ever(isPlaying, (callback) {
-      if (audioPlayer.playing) {
-        isPlaying(true);
-      } else if (audioPlayer.playing == false) {
-        isPlaying(false);
-      }
-    });
   }
 
   seekSlider(seconds) {
@@ -49,6 +33,14 @@ class PlayerController extends GetxController {
     audioPlayer.positionStream.listen((event) {
       position.value = event.toString().split('.')[0];
       positionValue.value = event.inSeconds.toDouble();
+      if (positionValue.value == durationValue.value && audioPlayer.playing) {
+        positionValue.value = 0;
+      }
+    });
+    audioPlayer.playerStateStream.listen((playerState) {
+      if (playerState.processingState == ProcessingState.completed) {
+        isPlaying(false);
+      }
     });
   }
 
@@ -103,6 +95,16 @@ class PlayerController extends GetxController {
       print(e.toString());
     }
   }
+  /* Future<void> playSong(index) async {
+    playIndex.value = index;
+    var uri = musicList[index].uri;
+    await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+    await audioPlayer.play();
+    isPlaying(true);
+   
+
+    updatePosition();
+  } */
 
   checkPermission() async {
     var perm = await Permission.storage.request();
