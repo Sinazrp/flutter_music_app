@@ -76,100 +76,107 @@ class Player extends StatelessWidget {
                   ),
                 ),
               ),
-              Obx(
-                () => Row(
-                  children: [
-                    const Text(
-                        style: TextStyle(
-                            color: whiteColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Roboto'),
-                        'Repeat:'),
-                    PopupMenuButton(
-                      elevation: 0,
-                      color: Colors.deepPurple.shade400,
-                      icon: controller.mode.value == 0
-                          ? const Text(
-                              style: TextStyle(
-                                  color: whiteColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto'),
-                              'this')
-                          : controller.mode.value == 1
-                              ? const Text(
-                                  style: TextStyle(
-                                      color: whiteColor,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Roboto'),
-                                  'Off')
-                              : const Text(
-                                  style: TextStyle(
-                                      color: whiteColor,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Roboto'),
-                                  'All'),
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          child: InkWell(
-                            onTap: () {
-                              controller.changeMode(0);
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'this',
-                              style: TextStyle(
-                                  color: whiteColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto'),
-                            ),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          child: InkWell(
-                            onTap: () {
-                              controller.changeMode(1);
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Off',
-                              style: TextStyle(
-                                  color: whiteColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto'),
-                            ),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          child: InkWell(
-                            onTap: () {
-                              controller.changeMode(2);
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'All',
-                              style: TextStyle(
-                                  color: whiteColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto'),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
             ],
           ),
-          const SizedBox(
-            height: 5,
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Obx(
+                  () => Row(
+                    children: [
+                      const Text(
+                          style: TextStyle(
+                              color: whiteColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Roboto'),
+                          'Repeat:'),
+                      PopupMenuButton(
+                        elevation: 0,
+                        color: Colors.deepPurple.shade400,
+                        icon: controller.mode.value == 0
+                            ? const Text(
+                                style: TextStyle(
+                                    color: whiteColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto'),
+                                'this')
+                            : controller.mode.value == 1
+                                ? const Text(
+                                    style: TextStyle(
+                                        color: whiteColor,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Roboto'),
+                                    'Off')
+                                : const Text(
+                                    style: TextStyle(
+                                        color: whiteColor,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Roboto'),
+                                    'All'),
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            child: InkWell(
+                              onTap: () {
+                                controller.changeMode(0);
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'this',
+                                style: TextStyle(
+                                    color: whiteColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto'),
+                              ),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            child: InkWell(
+                              onTap: () {
+                                controller.changeMode(1);
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'Off',
+                                style: TextStyle(
+                                    color: whiteColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto'),
+                              ),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            child: InkWell(
+                              onTap: () {
+                                controller.changeMode(2);
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'All',
+                                style: TextStyle(
+                                    color: whiteColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

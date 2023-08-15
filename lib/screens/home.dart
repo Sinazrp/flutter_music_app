@@ -101,21 +101,12 @@ class Home extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            actions: const [
-              /*  Container(
-              margin: const EdgeInsets.only(right: 10),
-              child: const CircleAvatar(
-                radius: 20,
-                backgroundImage: NetworkImage(
-                  profileImage,
-                ),
-              ),
-            ), */
+            /* actions: const [
               Padding(
                 padding: EdgeInsets.only(right: 20),
                 child: Icon(Icons.search_rounded, color: Colors.white),
               ),
-            ],
+            ], */
           ),
           body: Obx(
             () => controller.musicList.isEmpty
@@ -179,7 +170,7 @@ class Home extends StatelessWidget {
                                             ),
                                           ),
                                   ),
-                                  trailing: InkWell(
+                                  /*  trailing: InkWell(
                                     onTap: () {},
                                     child: Icon(Icons.menu_rounded,
                                         color: controller.playIndex.value ==
@@ -187,7 +178,7 @@ class Home extends StatelessWidget {
                                                 controller.isPlaying.value
                                             ? greenColors
                                             : Colors.white),
-                                  ),
+                                  ), */
                                   onTap: () {
                                     if (controller.isPlaying.value &&
                                         controller.playIndex.value == index) {
