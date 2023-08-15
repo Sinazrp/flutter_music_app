@@ -23,33 +23,42 @@ class Home extends StatelessWidget {
       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
       child: Scaffold(
           bottomNavigationBar: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
+            height: MediaQuery.of(context).size.height * 0.080,
             child: Stack(
               children: [
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.deepPurple.shade300,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    height: MediaQuery.of(context).size.height * 0.06,
+                      color: Colors.deepPurple.shade300,
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.085,
                     width: double.infinity,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 75, top: 12),
-                      child: Text(
-                        '${controller.musicList[controller.playIndex.value].title}sdadasada',
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            color: whiteColor, fontWeight: FontWeight.bold),
+                      padding: const EdgeInsets.only(left: 85, top: 27),
+                      child: Obx(
+                        () => Text(
+                          controller.musicList.isEmpty
+                              ? "No music"
+                              : controller.musicList[controller.playIndex.value]
+                                      .title +
+                                  ', ' +
+                                  controller
+                                      .musicList[controller.playIndex.value]
+                                      .artist
+                                      .toString(),
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: whiteColor, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 5)
+                      .copyWith(left: 12),
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Obx(
@@ -102,7 +111,7 @@ class Home extends StatelessWidget {
           ),
           body: Obx(
             () => controller.musicList.isEmpty
-                ? const CircularProgressIndicator()
+                ? const Center(child: CircularProgressIndicator())
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.builder(
