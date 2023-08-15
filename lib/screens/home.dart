@@ -124,7 +124,7 @@ class Home extends StatelessWidget {
                                       controller.stopSong();
                                       print('stop');
                                     } else {
-                                      controller.playSong(index);
+                                      controller.playPlayList(index);
                                       Get.to(() => Player(),
                                           transition: Transition.downToUp,
                                           duration:

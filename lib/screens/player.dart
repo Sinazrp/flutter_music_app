@@ -58,7 +58,7 @@ class Player extends StatelessWidget {
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Padding(
@@ -76,6 +76,116 @@ class Player extends StatelessWidget {
                   ),
                 ),
               ),
+              Obx(
+                () => Row(
+                  children: [
+                    const Text(
+                        style: TextStyle(
+                            color: whiteColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Roboto'),
+                        'PlayMode:'),
+                    PopupMenuButton(
+                      elevation: 0,
+                      color: Colors.deepPurple.shade400,
+                      icon: controller.mode.value == 0
+                          ? const Text(
+                              style: TextStyle(
+                                  color: whiteColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                              'Only once')
+                          : controller.mode.value == 1
+                              ? const Text(
+                                  style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Roboto'),
+                                  'Repeat this')
+                              : controller.mode.value == 2
+                                  ? const Text(
+                                      style: TextStyle(
+                                          color: whiteColor,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Roboto'),
+                                      'End of List')
+                                  : const Text(
+                                      style: TextStyle(
+                                          color: whiteColor,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Roboto'),
+                                      'Repeat list'),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: InkWell(
+                            onTap: () {
+                              controller.changeMode(0);
+                            },
+                            child: const Text(
+                              'Only once',
+                              style: TextStyle(
+                                  color: whiteColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          child: InkWell(
+                            onTap: () {
+                              controller.changeMode(1);
+                            },
+                            child: const Text(
+                              'Repeat this',
+                              style: TextStyle(
+                                  color: whiteColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          child: InkWell(
+                            onTap: () {
+                              controller.changeMode(2);
+                            },
+                            child: const Text(
+                              'End of List',
+                              style: TextStyle(
+                                  color: whiteColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          child: InkWell(
+                            onTap: () {
+                              controller.changeMode(3);
+                            },
+                            child: const Text(
+                              'Repeat list',
+                              style: TextStyle(
+                                  color: whiteColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
           const SizedBox(
@@ -127,11 +237,12 @@ class Player extends StatelessWidget {
                   children: [
                     Text(
                       controller.position.value,
-                      style: TextStyle(color: whiteColor, fontFamily: "Roboto"),
+                      style: const TextStyle(
+                          color: whiteColor, fontFamily: "Roboto"),
                     ),
                     Text(controller.duration.value,
-                        style:
-                            TextStyle(color: whiteColor, fontFamily: "Roboto"))
+                        style: const TextStyle(
+                            color: whiteColor, fontFamily: "Roboto"))
                   ]),
             ),
           ),
