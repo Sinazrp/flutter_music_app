@@ -85,7 +85,7 @@ class Player extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Roboto'),
-                        'PlayMode:'),
+                        'Repeat:'),
                     PopupMenuButton(
                       elevation: 0,
                       color: Colors.deepPurple.shade400,
@@ -96,7 +96,7 @@ class Player extends StatelessWidget {
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Roboto'),
-                              'Repeat this')
+                              'this')
                           : controller.mode.value == 1
                               ? const Text(
                                   style: TextStyle(
@@ -104,14 +104,14 @@ class Player extends StatelessWidget {
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Roboto'),
-                                  'All List')
+                                  'Off')
                               : const Text(
                                   style: TextStyle(
                                       color: whiteColor,
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Roboto'),
-                                  'Repeat List'),
+                                  'All'),
                       itemBuilder: (context) => [
                         PopupMenuItem(
                           child: InkWell(
@@ -120,7 +120,7 @@ class Player extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             child: const Text(
-                              'Repeat this',
+                              'this',
                               style: TextStyle(
                                   color: whiteColor,
                                   fontSize: 12,
@@ -136,7 +136,7 @@ class Player extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             child: const Text(
-                              'All List',
+                              'Off',
                               style: TextStyle(
                                   color: whiteColor,
                                   fontSize: 12,
@@ -152,7 +152,7 @@ class Player extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             child: const Text(
-                              'Repeat list',
+                              'All',
                               style: TextStyle(
                                   color: whiteColor,
                                   fontSize: 12,
