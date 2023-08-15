@@ -1,9 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music_app/screens/home.dart';
 import 'package:flutter_music_app/screens/player.dart';
-
-import '../constant/text_style.dart';
 
 class Tabbarr extends StatelessWidget {
   Tabbarr({Key? key}) : super(key: key);

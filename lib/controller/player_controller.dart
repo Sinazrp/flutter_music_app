@@ -98,12 +98,8 @@ class PlayerController extends GetxController {
   }
 
   pauseSong() {
-    try {
-      audioPlayer.pause();
-      isPlaying(false);
-    } catch (e) {
-      print(e.toString());
-    }
+    audioPlayer.pause();
+    isPlaying(false);
   }
 
   playPlayList(index) async {

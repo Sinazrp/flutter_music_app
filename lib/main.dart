@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music_app/screens/home.dart';
-import 'package:flutter_music_app/screens/tabbar.dart';
 import 'package:get/get.dart';
 
 void main() {

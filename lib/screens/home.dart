@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music_app/constant/colors.dart';
 import 'package:flutter_music_app/constant/text_style.dart';
@@ -32,7 +31,7 @@ class Home extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.deepPurple.shade300,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20))),
                     height: MediaQuery.of(context).size.height * 0.06,
@@ -40,11 +39,10 @@ class Home extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 75, top: 12),
                       child: Text(
-                        controller.musicList[controller.playIndex.value].title +
-                            'sdadasada',
+                        '${controller.musicList[controller.playIndex.value].title}sdadasada',
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: whiteColor, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -180,7 +178,6 @@ class Home extends StatelessWidget {
                                           transition: Transition.downToUp,
                                           duration: const Duration(
                                               milliseconds: 400));
-                                      print('stop');
                                     } else {
                                       controller.playPlayList(index);
 
