@@ -29,20 +29,32 @@ class Home extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.deepPurple.shade300,
+                        borderRadius: BorderRadius.circular(15)),
                     height: MediaQuery.of(context).size.height * 0.06,
-                    color: Colors.amber,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: CircleAvatar(
-                      child: SpinKitRotatingCircle(
-                        color: Colors.white,
-                        size: 50.0,
+                    child: Obx(
+                      () => InkWell(
+                        child: CircleAvatar(
+                          child: controller.isPlaying.value
+                              ? SpinKitRipple(
+                                  color: Color.fromARGB(255, 213, 99, 64),
+                                  size: 50.0,
+                                )
+                              : Icon(
+                                  Icons.play_arrow,
+                                  size: 30,
+                                ),
+                          radius: 30,
+                        ),
+                        onTap: () => Get.to(() => Player()),
                       ),
-                      radius: 30,
                     ),
                   ),
                 ),
