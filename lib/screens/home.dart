@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music_app/constant/colors.dart';
 import 'package:flutter_music_app/constant/text_style.dart';
@@ -22,7 +23,7 @@ class Home extends StatelessWidget {
         Colors.deepPurple.shade200.withOpacity(0.7)
       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
       child: Scaffold(
-          bottomNavigationBar: Container(
+          bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
             child: Stack(
               children: [
@@ -31,8 +32,22 @@ class Home extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.deepPurple.shade300,
-                        borderRadius: BorderRadius.circular(15)),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
                     height: MediaQuery.of(context).size.height * 0.06,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 75, top: 12),
+                      child: Text(
+                        controller.musicList[controller.playIndex.value].title +
+                            'sdadasada',
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: whiteColor, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
@@ -42,16 +57,16 @@ class Home extends StatelessWidget {
                     child: Obx(
                       () => InkWell(
                         child: CircleAvatar(
+                          radius: 30,
                           child: controller.isPlaying.value
-                              ? SpinKitRipple(
+                              ? const SpinKitRipple(
                                   color: Color.fromARGB(255, 213, 99, 64),
                                   size: 50.0,
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.play_arrow,
                                   size: 30,
                                 ),
-                          radius: 30,
                         ),
                         onTap: () => Get.to(() => Player()),
                       ),
@@ -104,8 +119,8 @@ class Home extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                   color: controller.playIndex.value == index &&
                                           controller.isPlaying.value
-                                      ? Color.fromARGB(122, 36, 36, 36)
-                                      : Color.fromARGB(26, 255, 255, 255),
+                                      ? const Color.fromARGB(122, 36, 36, 36)
+                                      : const Color.fromARGB(26, 255, 255, 255),
                                 ),
                                 child: ListTile(
                                   title: Text(
@@ -136,10 +151,10 @@ class Home extends StatelessWidget {
                                   ),
                                   leading: CircleAvatar(
                                     backgroundColor:
-                                        Color.fromARGB(17, 255, 255, 255),
+                                        const Color.fromARGB(17, 255, 255, 255),
                                     child: controller.isPlaying.value &&
                                             controller.playIndex.value == index
-                                        ? Icon(Icons.pause)
+                                        ? const Icon(Icons.pause)
                                         : QueryArtworkWidget(
                                             id: controller.musicList[index].id,
                                             type: ArtworkType.AUDIO,
@@ -163,16 +178,16 @@ class Home extends StatelessWidget {
                                         controller.playIndex.value == index) {
                                       Get.to(() => Player(),
                                           transition: Transition.downToUp,
-                                          duration:
-                                              Duration(milliseconds: 400));
+                                          duration: const Duration(
+                                              milliseconds: 400));
                                       print('stop');
                                     } else {
                                       controller.playPlayList(index);
 
                                       Get.to(() => Player(),
                                           transition: Transition.downToUp,
-                                          duration:
-                                              Duration(milliseconds: 400));
+                                          duration: const Duration(
+                                              milliseconds: 400));
                                     }
                                   },
                                 )),
