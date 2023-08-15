@@ -30,6 +30,7 @@ class PlayerController extends GetxController {
         audioPlayer.setLoopMode(LoopMode.all);
       }
     });
+    print(audioPlayer.playerState);
   }
 
   void changeMode(int newmode) {
@@ -89,6 +90,10 @@ class PlayerController extends GetxController {
         positionValue.value == 0) {
       audioPlayer.setLoopMode(LoopMode.off);
 
+      playPlayList(playIndex.value);
+      isPlaying(true);
+    }
+    if (audioPlayer.processingState == ProcessingState.idle) {
       playPlayList(playIndex.value);
       isPlaying(true);
     }

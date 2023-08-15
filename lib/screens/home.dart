@@ -28,29 +28,35 @@ class Home extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade300,
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.085,
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 85, top: 27),
-                      child: Obx(
-                        () => Text(
-                          controller.musicList.isEmpty
-                              ? "No music"
-                              : controller.musicList[controller.playIndex.value]
-                                      .title +
-                                  ', ' +
-                                  controller
-                                      .musicList[controller.playIndex.value]
-                                      .artist
-                                      .toString(),
-                          softWrap: false,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              color: whiteColor, fontWeight: FontWeight.bold),
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(() => Player());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple.shade300,
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.085,
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 85, top: 27),
+                        child: Obx(
+                          () => Text(
+                            controller.musicList.isEmpty
+                                ? "No music"
+                                : controller
+                                        .musicList[controller.playIndex.value]
+                                        .title +
+                                    ', ' +
+                                    controller
+                                        .musicList[controller.playIndex.value]
+                                        .artist
+                                        .toString(),
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                color: whiteColor, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),
@@ -75,7 +81,9 @@ class Home extends StatelessWidget {
                                   size: 30,
                                 ),
                         ),
-                        onTap: () => Get.to(() => Player()),
+                        onTap: () {
+                          Get.to(() => Player());
+                        },
                       ),
                     ),
                   ),
