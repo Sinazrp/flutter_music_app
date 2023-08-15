@@ -96,7 +96,7 @@ class Player extends StatelessWidget {
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Roboto'),
-                              'Only once')
+                              'Repeat this')
                           : controller.mode.value == 1
                               ? const Text(
                                   style: TextStyle(
@@ -104,42 +104,20 @@ class Player extends StatelessWidget {
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Roboto'),
-                                  'Repeat this')
-                              : controller.mode.value == 2
-                                  ? const Text(
-                                      style: TextStyle(
-                                          color: whiteColor,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Roboto'),
-                                      'End of List')
-                                  : const Text(
-                                      style: TextStyle(
-                                          color: whiteColor,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Roboto'),
-                                      'Repeat list'),
+                                  'All List')
+                              : const Text(
+                                  style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Roboto'),
+                                  'Repeat List'),
                       itemBuilder: (context) => [
                         PopupMenuItem(
                           child: InkWell(
                             onTap: () {
                               controller.changeMode(0);
-                            },
-                            child: const Text(
-                              'Only once',
-                              style: TextStyle(
-                                  color: whiteColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto'),
-                            ),
-                          ),
-                        ),
-                        PopupMenuItem(
-                          child: InkWell(
-                            onTap: () {
-                              controller.changeMode(1);
+                              Navigator.pop(context);
                             },
                             child: const Text(
                               'Repeat this',
@@ -154,10 +132,11 @@ class Player extends StatelessWidget {
                         PopupMenuItem(
                           child: InkWell(
                             onTap: () {
-                              controller.changeMode(2);
+                              controller.changeMode(1);
+                              Navigator.pop(context);
                             },
                             child: const Text(
-                              'End of List',
+                              'All List',
                               style: TextStyle(
                                   color: whiteColor,
                                   fontSize: 12,
@@ -169,7 +148,8 @@ class Player extends StatelessWidget {
                         PopupMenuItem(
                           child: InkWell(
                             onTap: () {
-                              controller.changeMode(3);
+                              controller.changeMode(2);
+                              Navigator.pop(context);
                             },
                             child: const Text(
                               'Repeat list',
@@ -252,7 +232,7 @@ class Player extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     if (controller.playIndex > 0) {
-                      controller.playSong(controller.playIndex.value - 1);
+                      controller.audioPlayer.seekToPrevious();
                     }
                   },
                   icon: const Icon(
@@ -285,7 +265,7 @@ class Player extends StatelessWidget {
                   onPressed: () {
                     if (controller.playIndex <
                         controller.musicList.length - 1) {
-                      controller.playSong(controller.playIndex.value + 1);
+                      controller.audioPlayer.seekToNext();
                     } else {
                       Get.snackbar('Musiclot', 'Last music of list');
                     }

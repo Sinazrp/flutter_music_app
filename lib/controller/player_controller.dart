@@ -13,7 +13,7 @@ class PlayerController extends GetxController {
   var position = ''.obs;
   var durationValue = 0.0.obs;
   var positionValue = 0.0.obs;
-  // end 0 -  repeat 1 - go through playlist 2 -repeat list 3
+  //   repeat 0 - go through playlist 1 -repeat list 2
   var mode = 0.obs;
   var playlist = ConcatenatingAudioSource(children: []).obs;
 
@@ -21,6 +21,15 @@ class PlayerController extends GetxController {
   void onInit() {
     super.onInit();
     checkPermission();
+    ever(mode, (callback) {
+      if (callback == 0) {
+        audioPlayer.setLoopMode(LoopMode.one);
+      } else if (callback == 1) {
+        audioPlayer.setLoopMode(LoopMode.off);
+      } else if (callback == 2) {
+        audioPlayer.setLoopMode(LoopMode.all);
+      }
+    });
   }
 
   void changeMode(int newmode) {
@@ -40,23 +49,20 @@ class PlayerController extends GetxController {
     audioPlayer.positionStream.listen((event) {
       position.value = event.toString().split('.')[0];
       positionValue.value = event.inSeconds.toDouble();
-      /* if (positionValue.value == durationValue.value &&
-          audioPlayer.playing &&
-          mode.value == 0) {
+      if (positionValue.value == durationValue.value && mode.value == 1) {
         positionValue.value = 0;
       }
-      if (positionValue.value == durationValue.value &&
-          audioPlayer.playing &&
-          mode.value == 2 &&
-          playIndex.value == musicList.length - 1) {
-        positionValue.value = 0;
-      } */
     });
   }
 
   checkState() {
     audioPlayer.currentIndexStream.listen((event) {
       playIndex.value = event!;
+    });
+    audioPlayer.processingStateStream.listen((event) {
+      if (event == ProcessingState.completed) {
+        isPlaying(false);
+      }
     });
   }
 
@@ -72,23 +78,23 @@ class PlayerController extends GetxController {
 
   stopSong() {
     playIndex.value = 0;
-    try {
-      audioPlayer.stop();
-      isPlaying(false);
-    } catch (e) {
-      print(e.toString());
-    }
+
+    audioPlayer.stop();
+    isPlaying(false);
   }
 
   resumeSong() {
-    try {
-      audioPlayer.play();
-      if (positionValue.value == 0) {
-        var uri = musicList[playIndex.value].uri;
-        audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-      }
+    if (audioPlayer.processingState == ProcessingState.completed &&
+        mode.value == 1 &&
+        positionValue.value == 0) {
+      audioPlayer.setLoopMode(LoopMode.off);
+
+      playPlayList(playIndex.value);
       isPlaying(true);
-    } catch (e) {}
+    }
+
+    audioPlayer.play();
+    isPlaying(true);
   }
 
   pauseSong() {
@@ -107,37 +113,19 @@ class PlayerController extends GetxController {
       initialIndex: index,
       initialPosition: Duration.zero,
     );
-    audioPlayer.setLoopMode(LoopMode.all);
+    if (mode.value == 0) {
+      audioPlayer.setLoopMode(LoopMode.one);
+    } else if (mode.value == 1) {
+      audioPlayer.setLoopMode(LoopMode.off);
+    } else {
+      audioPlayer.setLoopMode(LoopMode.all);
+    }
+
     audioPlayer.play();
     isPlaying(true);
     updatePosition();
     checkState();
   }
-
-  playSong(index) async {
-    print('thi is index  $index');
-    playIndex.value = index;
-    try {
-      var uri = musicList[index].uri;
-      audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-      audioPlayer.play();
-      isPlaying(true);
-      checkState();
-      updatePosition();
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-  /* Future<void> playSong(index) async {
-    playIndex.value = index;
-    var uri = musicList[index].uri;
-    await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-    await audioPlayer.play();
-    isPlaying(true);
-   
-
-    updatePosition();
-  } */
 
   checkPermission() async {
     var perm = await Permission.storage.request();
@@ -150,17 +138,10 @@ class PlayerController extends GetxController {
 
   createPlaylist(List<SongModel> list) {
     var l = ConcatenatingAudioSource(
-      // Start loading next item just before reaching it
-
-      // Specify the playlist items
       children: list
           .map((e) => AudioSource.uri(Uri.parse(e.uri.toString())))
           .toList(),
-      /* AudioSource.uri(Uri.parse('https://example.com/track1.mp3')),
-        AudioSource.uri(Uri.parse('https://example.com/track2.mp3')),
-        AudioSource.uri(Uri.parse('https://example.com/track3.mp3')), */
     );
     playlist.value = l;
-    print(l);
   }
 }
