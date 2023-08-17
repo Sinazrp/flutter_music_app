@@ -181,13 +181,6 @@ class Player extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              /*  const Text(
-                '0:0',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 213, 211, 211),
-                  fontSize: 13,
-                ),
-              ), */
               Expanded(
                 child: Obx(
                   () => Slider(
